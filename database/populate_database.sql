@@ -40,29 +40,29 @@ INSERT INTO Publishers (name, address_id, website, email, phone) VALUES
 
 -- Insert Authors
 INSERT INTO Authors (first_name, last_name, biography, birth_date) VALUES 
-('Perry', 'Hotter', 'Known for magical parodies', '1980-07-31'),
-('Jane', 'Boston', 'Specializes in classic literature parodies', '1975-12-16'),
-('George R.R.', 'Fartin', 'Master of fantasy parodies', '1968-09-20'),
-('Stephenie', 'Smeyer', 'Queen of supernatural romance parodies', '1973-12-24'),
-('Dan', 'Frown', 'Expert in thriller parodies', '1964-06-22'),
-('Suzanne', 'Rollins', 'Dystopian parody specialist', '1982-08-10'),
-('J.R.R.', 'Folkien', 'Creator of Middle-Girth parodies', '1970-01-03'),
-('Agatha', 'Crispy', 'Mystery parody writer extraordinaire', '1965-09-15'),
-('Ernest', 'Hemingaway', 'Parodies with short sentences', '1969-07-21'),
-('Mark', 'Twang', 'River adventure parodies', '1972-11-30');
+('Perry', 'Hotter', CAST('Known for magical parodies' AS CLOB), '1980-07-31'),
+('Jane', 'Boston', CAST('Specializes in classic literature parodies' AS CLOB), '1975-12-16'),
+('George R.R.', 'Fartin', CAST('Master of fantasy parodies' AS CLOB), '1968-09-20'),
+('Stephenie', 'Smeyer', CAST('Queen of supernatural romance parodies' AS CLOB), '1973-12-24'),
+('Dan', 'Frown', CAST('Expert in thriller parodies' AS CLOB), '1964-06-22'),
+('Suzanne', 'Rollins', CAST('Dystopian parody specialist' AS CLOB), '1982-08-10'),
+('J.R.R.', 'Folkien', CAST('Creator of Middle-Girth parodies' AS CLOB), '1970-01-03'),
+('Agatha', 'Crispy', CAST('Mystery parody writer extraordinaire' AS CLOB), '1965-09-15'),
+('Ernest', 'Hemingaway', CAST('Parodies with short sentences' AS CLOB), '1969-07-21'),
+('Mark', 'Twang', CAST('River adventure parodies' AS CLOB), '1972-11-30');
 
 -- Insert Categories
 INSERT INTO Categories (name, description, parent_id) VALUES 
-('Fiction', 'Fictional works', NULL),
-('Fantasy', 'Fantasy works', 1),
-('Science Fiction', 'Sci-fi works', 1),
-('Romance', 'Romantic works', 1),
-('Mystery', 'Mystery works', 1),
-('Thriller', 'Thriller works', 1),
-('Young Adult', 'YA works', 1),
-('Dystopian', 'Dystopian works', 3),
-('Paranormal', 'Paranormal works', 2),
-('Classic', 'Classic literature parodies', 1);
+('Fiction', CAST('Fictional works' AS CLOB), NULL),
+('Fantasy', CAST('Fantasy works' AS CLOB), 1),
+('Science Fiction', CAST('Sci-fi works' AS CLOB), 1),
+('Romance', CAST('Romantic works' AS CLOB), 1),
+('Mystery', CAST('Mystery works' AS CLOB), 1),
+('Thriller', CAST('Thriller works' AS CLOB), 1),
+('Young Adult', CAST('YA works' AS CLOB), 1),
+('Dystopian', CAST('Dystopian works' AS CLOB), 3),
+('Paranormal', CAST('Paranormal works' AS CLOB), 2),
+('Classic', CAST('Classic literature parodies' AS CLOB), 1);
 
 -- Insert Tags
 INSERT INTO Tags (name) VALUES 
@@ -79,36 +79,36 @@ INSERT INTO Tags (name) VALUES
 
 -- Insert Books (Parodies of popular books)
 INSERT INTO Books (title, subtitle, isbn13, isbn10, publisher_id, publication_date, edition, page_count, language, description, cover_image_url, price) VALUES 
-('Harry Plotter and the Sorcerer''s Bone', 'A Magical Parody', '9781234567891', '1234567891', 1, '2001-06-26', '1st', 309, 'English', 'Young wizard learns to garden magically', 'https://example.com/covers/harryplotter1.jpg', 14.99),
-('Harry Plotter and the Chamber of Secretions', NULL, '9781234567892', '1234567892', 1, '2002-07-02', '1st', 328, 'English', 'Harry deals with magical plumbing issues', 'https://example.com/covers/harryplotter2.jpg', 15.99),
-('Harry Plotter and the Prisoner of Azkabanned', NULL, '9781234567893', '1234567893', 1, '2004-07-27', '1st', 342, 'English', 'Harry meets a gardener who was banned from Azkaban', 'https://example.com/covers/harryplotter3.jpg', 16.99),
-('The Hunger Lames', 'A Dystopian Parody', '9782345678901', '2345678901', 3, '2010-09-14', '1st', 378, 'English', 'Teens with leg injuries compete in a deadly game show', 'https://example.com/covers/hungerlames.jpg', 13.99),
-('Catching Flies', NULL, '9782345678902', '2345678902', 3, '2011-09-01', '1st', 391, 'English', 'The revolution continues with more insect collection', 'https://example.com/covers/catchingflies.jpg', 14.99),
-('Mockingjay-Z', NULL, '9782345678903', '2345678903', 3, '2012-08-24', '1st', 403, 'English', 'The revolution meets hip-hop', 'https://example.com/covers/mockingjayZ.jpg', 15.99),
-('Twilit', 'A Vampire Romance Parody', '9783456789012', '3456789012', 2, '2008-10-05', '1st', 498, 'English', 'Girl falls in love with a slightly illuminated vampire', 'https://example.com/covers/twilit.jpg', 12.99),
-('New Noon', NULL, '9783456789013', '3456789013', 2, '2009-09-22', '1st', 501, 'English', 'The vampire saga continues at lunchtime', 'https://example.com/covers/newnoon.jpg', 13.99),
-('Eclipsed', NULL, '9783456789014', '3456789014', 2, '2010-06-30', '1st', 511, 'English', 'Vampires during a solar phenomenon', 'https://example.com/covers/eclipsed.jpg', 14.99),
-('Breaking Down', NULL, '9783456789015', '3456789015', 2, '2011-08-02', '1st', 520, 'English', 'The vampire saga concludes with structural failures', 'https://example.com/covers/breakingdown.jpg', 15.99),
-('The Da Vinci Cod', 'A Fishy Mystery', '9784567890123', '4567890123', 4, '2004-04-07', '1st', 454, 'English', 'A symbologist discovers secrets hidden in fish', 'https://example.com/covers/davincicod.jpg', 16.99),
-('Angels & Daemons', 'A Hellish Parody', '9784567890124', '4567890124', 4, '2006-05-23', '1st', 441, 'English', 'Robert Langdon battles computer processes', 'https://example.com/covers/angelsdaemons.jpg', 15.99),
-('The Lost Cymbal', 'A Musical Mystery', '9784567890125', '4567890125', 4, '2009-09-15', '1st', 463, 'English', 'The search for a missing percussion instrument', 'https://example.com/covers/lostcymbal.jpg', 14.99),
-('A Game of Moans', 'A Song of Vice and Ire', '9785678901234', '5678901234', 1, '2011-07-12', '1st', 694, 'English', 'Political intrigue in a fantasy world full of complainers', 'https://example.com/covers/gameofmoans.jpg', 19.99),
-('A Clash of Swings', NULL, '9785678901235', '5678901235', 1, '2012-07-31', '1st', 712, 'English', 'The war of the playground equipment begins', 'https://example.com/covers/clashofswings.jpg', 20.99),
-('A Storm of Swords', 'But They''re Plastic', '9785678901236', '5678901236', 1, '2013-08-06', '1st', 751, 'English', 'The toy war escalates', 'https://example.com/covers/stormofswords.jpg', 21.99),
-('The Lord of the Onion Rings', 'One Ring to Season Them All', '9786789012345', '6789012345', 5, '2002-12-19', '1st', 531, 'English', 'A hobbit-like creature must destroy a powerful fast food item', 'https://example.com/covers/lordonionrings.jpg', 18.99),
-('The Two Flowers', NULL, '9786789012346', '6789012346', 5, '2003-12-18', '1st', 543, 'English', 'The fellowship is split as they search for rare plants', 'https://example.com/covers/twoflowers.jpg', 19.99),
-('The Return of the Bling', NULL, '9786789012347', '6789012347', 5, '2004-12-14', '1st', 567, 'English', 'The epic conclusion where jewelry is reclaimed', 'https://example.com/covers/returnbling.jpg', 20.99),
-('Pride and Prejudice and Zombies', 'The Classic Regency Romance with Undead', '9787890123456', '7890123456', 3, '2009-04-01', '1st', 317, 'English', 'Elizabeth Bennet battles the undead while finding love', 'https://example.com/covers/prideprejudicezombies.jpg', 12.99),
-('Sense and Sensibility and Sea Monsters', NULL, '9787890123457', '7890123457', 3, '2010-03-15', '1st', 325, 'English', 'The Dashwood sisters face aquatic creatures', 'https://example.com/covers/senseseasmonsters.jpg', 13.99),
-('Murder on the Oriental Excess', 'A Hercule Parrot Mystery', '9788901234567', '8901234567', 4, '2005-11-08', '1st', 274, 'English', 'Famous detective solves a murder on a very fancy train', 'https://example.com/covers/orientalexcess.jpg', 11.99),
-('And Then There Were Nuns', NULL, '9788901234568', '8901234568', 4, '2006-10-24', '1st', 268, 'English', 'Ten sisters isolated on an island start disappearing', 'https://example.com/covers/thentherewere.jpg', 12.99),
-('The Old Man and the Sea Bass', 'A Fishing Tale', '9789012345678', '9012345678', 2, '2007-07-17', '1st', 127, 'English', 'An elderly fisherman struggles to catch a specific fish', 'https://example.com/covers/oldmanseabass.jpg', 9.99),
-('Moby-Richard', 'The Great White Whale', '9789012345679', '9012345679', 2, '2008-06-10', '1st', 583, 'English', 'Captain Ahab''s obsession with a formally-named whale', 'https://example.com/covers/mobyrichard.jpg', 17.99),
-('The Adventures of Huckleberry Fin', 'A Fish Out of Water', '9780123456789', '0123456789', 5, '2006-05-16', '1st', 318, 'English', 'A boy and a fish travel down the Mississippi', 'https://example.com/covers/huckleberryfin.jpg', 13.99),
-('The Great Gatsby Parrot', 'A Bird''s Eye View of the Roaring Twenties', '9780123456790', '0123456790', 5, '2007-04-10', '1st', 189, 'English', 'A talking parrot observes high society from his cage', 'https://example.com/covers/gatsbyparrot.jpg', 14.99),
-('To Kill a Mockingboard', 'A Tale of Circuit Boards', '9780123456791', '0123456791', 1, '2008-03-11', '1st', 324, 'English', 'A lawyer defends an electronic device accused of murder', 'https://example.com/covers/mockingboard.jpg', 15.99),
-('1984 BC', 'Big Brother in Ancient Times', '9780123456792', '0123456792', 3, '2009-02-12', '1st', 297, 'English', 'Dystopian society in prehistoric times', 'https://example.com/covers/1984bc.jpg', 16.99),
-('Brave New Word', 'A Linguistic Dystopia', '9780123456793', '0123456793', 3, '2010-01-19', '1st', 311, 'English', 'A society where vocabulary is strictly controlled', 'https://example.com/covers/bravenewword.jpg', 17.99);
+('Harry Plotter and the Sorcerer''s Bone', 'A Magical Parody', '9781234567891', '1234567891', 1, '2001-06-26', '1st', 309, 'English', CAST('Young wizard learns to garden magically' AS CLOB), 'https://example.com/covers/harryplotter1.jpg', 14.99),
+('Harry Plotter and the Chamber of Secretions', NULL, '9781234567892', '1234567892', 1, '2002-07-02', '1st', 328, 'English', CAST('Harry deals with magical plumbing issues' AS CLOB), 'https://example.com/covers/harryplotter2.jpg', 15.99),
+('Harry Plotter and the Prisoner of Azkabanned', NULL, '9781234567893', '1234567893', 1, '2004-07-27', '1st', 342, 'English', CAST('Harry meets a gardener who was banned from Azkaban' AS CLOB), 'https://example.com/covers/harryplotter3.jpg', 16.99),
+('The Hunger Lames', 'A Dystopian Parody', '9782345678901', '2345678901', 3, '2010-09-14', '1st', 378, 'English', CAST('Teens with leg injuries compete in a deadly game show' AS CLOB), 'https://example.com/covers/hungerlames.jpg', 13.99),
+('Catching Flies', NULL, '9782345678902', '2345678902', 3, '2011-09-01', '1st', 391, 'English', CAST('The revolution continues with more insect collection' AS CLOB), 'https://example.com/covers/catchingflies.jpg', 14.99),
+('Mockingjay-Z', NULL, '9782345678903', '2345678903', 3, '2012-08-24', '1st', 403, 'English', CAST('The revolution meets hip-hop' AS CLOB), 'https://example.com/covers/mockingjayZ.jpg', 15.99),
+('Twilit', 'A Vampire Romance Parody', '9783456789012', '3456789012', 2, '2008-10-05', '1st', 498, 'English', CAST('Girl falls in love with a slightly illuminated vampire' AS CLOB), 'https://example.com/covers/twilit.jpg', 12.99),
+('New Noon', NULL, '9783456789013', '3456789013', 2, '2009-09-22', '1st', 501, 'English', CAST('The vampire saga continues at lunchtime' AS CLOB), 'https://example.com/covers/newnoon.jpg', 13.99),
+('Eclipsed', NULL, '9783456789014', '3456789014', 2, '2010-06-30', '1st', 511, 'English', CAST('Vampires during a solar phenomenon' AS CLOB), 'https://example.com/covers/eclipsed.jpg', 14.99),
+('Breaking Down', NULL, '9783456789015', '3456789015', 2, '2011-08-02', '1st', 520, 'English', CAST('The vampire saga concludes with structural failures' AS CLOB), 'https://example.com/covers/breakingdown.jpg', 15.99),
+('The Da Vinci Cod', 'A Fishy Mystery', '9784567890123', '4567890123', 4, '2004-04-07', '1st', 454, 'English', CAST('A symbologist discovers secrets hidden in fish' AS CLOB), 'https://example.com/covers/davincicod.jpg', 16.99),
+('Angels & Daemons', 'A Hellish Parody', '9784567890124', '4567890124', 4, '2006-05-23', '1st', 441, 'English', CAST('Robert Langdon battles computer processes' AS CLOB), 'https://example.com/covers/angelsdaemons.jpg', 15.99),
+('The Lost Cymbal', 'A Musical Mystery', '9784567890125', '4567890125', 4, '2009-09-15', '1st', 463, 'English', CAST('The search for a missing percussion instrument' AS CLOB), 'https://example.com/covers/lostcymbal.jpg', 14.99),
+('A Game of Moans', 'A Song of Vice and Ire', '9785678901234', '5678901234', 1, '2011-07-12', '1st', 694, 'English', CAST('Political intrigue in a fantasy world full of complainers' AS CLOB), 'https://example.com/covers/gameofmoans.jpg', 19.99),
+('A Clash of Swings', NULL, '9785678901235', '5678901235', 1, '2012-07-31', '1st', 712, 'English', CAST('The war of the playground equipment begins' AS CLOB), 'https://example.com/covers/clashofswings.jpg', 20.99),
+('A Storm of Swords', 'But They''re Plastic', '9785678901236', '5678901236', 1, '2013-08-06', '1st', 751, 'English', CAST('The toy war escalates' AS CLOB), 'https://example.com/covers/stormofswords.jpg', 21.99),
+('The Lord of the Onion Rings', 'One Ring to Season Them All', '9786789012345', '6789012345', 5, '2002-12-19', '1st', 531, 'English', CAST('A hobbit-like creature must destroy a powerful fast food item' AS CLOB), 'https://example.com/covers/lordonionrings.jpg', 18.99),
+('The Two Flowers', NULL, '9786789012346', '6789012346', 5, '2003-12-18', '1st', 543, 'English', CAST('The fellowship is split as they search for rare plants' AS CLOB), 'https://example.com/covers/twoflowers.jpg', 19.99),
+('The Return of the Bling', NULL, '9786789012347', '6789012347', 5, '2004-12-14', '1st', 567, 'English', CAST('The epic conclusion where jewelry is reclaimed' AS CLOB), 'https://example.com/covers/returnbling.jpg', 20.99),
+('Pride and Prejudice and Zombies', 'The Classic Regency Romance with Undead', '9787890123456', '7890123456', 3, '2009-04-01', '1st', 317, 'English', CAST('Elizabeth Bennet battles the undead while finding love' AS CLOB), 'https://example.com/covers/prideprejudicezombies.jpg', 12.99),
+('Sense and Sensibility and Sea Monsters', NULL, '9787890123457', '7890123457', 3, '2010-03-15', '1st', 325, 'English', CAST('The Dashwood sisters face aquatic creatures' AS CLOB), 'https://example.com/covers/senseseasmonsters.jpg', 13.99),
+('Murder on the Oriental Excess', 'A Hercule Parrot Mystery', '9788901234567', '8901234567', 4, '2005-11-08', '1st', 274, 'English', CAST('Famous detective solves a murder on a very fancy train' AS CLOB), 'https://example.com/covers/orientalexcess.jpg', 11.99),
+('And Then There Were Nuns', NULL, '9788901234568', '8901234568', 4, '2006-10-24', '1st', 268, 'English', CAST('Ten sisters isolated on an island start disappearing' AS CLOB), 'https://example.com/covers/thentherewere.jpg', 12.99),
+('The Old Man and the Sea Bass', 'A Fishing Tale', '9789012345678', '9012345678', 2, '2007-07-17', '1st', 127, 'English', CAST('An elderly fisherman struggles to catch a specific fish' AS CLOB), 'https://example.com/covers/oldmanseabass.jpg', 9.99),
+('Moby-Richard', 'The Great White Whale', '9789012345679', '9012345679', 2, '2008-06-10', '1st', 583, 'English', CAST('Captain Ahab''s obsession with a formally-named whale' AS CLOB), 'https://example.com/covers/mobyrichard.jpg', 17.99),
+('The Adventures of Huckleberry Fin', 'A Fish Out of Water', '9780123456789', '0123456789', 5, '2006-05-16', '1st', 318, 'English', CAST('A boy and a fish travel down the Mississippi' AS CLOB), 'https://example.com/covers/huckleberryfin.jpg', 13.99),
+('The Great Gatsby Parrot', 'A Bird''s Eye View of the Roaring Twenties', '9780123456790', '0123456790', 5, '2007-04-10', '1st', 189, 'English', CAST('A talking parrot observes high society from his cage' AS CLOB), 'https://example.com/covers/gatsbyparrot.jpg', 14.99),
+('To Kill a Mockingboard', 'A Tale of Circuit Boards', '9780123456791', '0123456791', 1, '2008-03-11', '1st', 324, 'English', CAST('A lawyer defends an electronic device accused of murder' AS CLOB), 'https://example.com/covers/mockingboard.jpg', 15.99),
+('1984 BC', 'Big Brother in Ancient Times', '9780123456792', '0123456792', 3, '2009-02-12', '1st', 297, 'English', CAST('Dystopian society in prehistoric times' AS CLOB), 'https://example.com/covers/1984bc.jpg', 16.99),
+('Brave New Word', 'A Linguistic Dystopia', '9780123456793', '0123456793', 3, '2010-01-19', '1st', 311, 'English', CAST('A society where vocabulary is strictly controlled' AS CLOB), 'https://example.com/covers/bravenewword.jpg', 17.99);
 
 -- Insert Book_Author relationships
 INSERT INTO Book_Author (book_id, author_id, author_order) VALUES 
@@ -269,13 +269,13 @@ INSERT INTO OrderItems (order_id, book_id, quantity, unit_price, discount, subto
 
 -- Insert reviews
 INSERT INTO Reviews (book_id, customer_id, rating, review_text) VALUES 
-(1, 1, 5, 'Hilarious take on the original! Loved the gardening spells.'),
-(2, 1, 4, 'Not as good as the first one, but still funny.'),
-(3, 1, 5, 'The best in the series so far!'),
-(7, 2, 3, 'Somewhat amusing but the jokes get old fast.'),
-(8, 2, 4, 'Better than the first one, loved the lunch scene.'),
-(9, 2, 4, 'The solar eclipse vampire party was hilarious!'),
-(10, 2, 5, 'Perfect ending to the series!'),
-(24, 3, 5, 'A masterpiece of parody literature.'),
-(26, 3, 4, 'The fish perspective was unexpectedly deep.'),
-(11, 3, 5, 'The cod conspiracy had me in stitches!');
+(1, 1, 5, CAST('Hilarious take on the original! Loved the gardening spells.' AS CLOB)),
+(2, 1, 4, CAST('Not as good as the first one, but still funny.' AS CLOB)),
+(3, 1, 5, CAST('The best in the series so far!' AS CLOB)),
+(7, 2, 3, CAST('Somewhat amusing but the jokes get old fast.' AS CLOB)),
+(8, 2, 4, CAST('Better than the first one, loved the lunch scene.' AS CLOB)),
+(9, 2, 4, CAST('The solar eclipse vampire party was hilarious!' AS CLOB)),
+(10, 2, 5, CAST('Perfect ending to the series!' AS CLOB)),
+(24, 3, 5, CAST('A masterpiece of parody literature.' AS CLOB)),
+(26, 3, 4, CAST('The fish perspective was unexpectedly deep.' AS CLOB)),
+(11, 3, 5, CAST('The cod conspiracy had me in stitches!' AS CLOB));
