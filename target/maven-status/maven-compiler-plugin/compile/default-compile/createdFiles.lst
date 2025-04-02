@@ -1,0 +1,5 @@
+com/bookstore/BookstoreApplication.class
+com/bookstore/service/BookService.class
+com/bookstore/controller/BookController.class
+com/bookstore/repository/BookRepository.class
+com/bookstore/model/Book.class
