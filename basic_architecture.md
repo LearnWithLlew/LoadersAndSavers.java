@@ -1,6 +1,10 @@
-Perfect — here’s your updated list including **unit testing** with JUnit:
+# Bookstore Project
 
----
+This website is going to be single page that reads the database and displays the top 10 books.
+
+Please use the following technologies:
+
+## Technologies
 
 ### ⚙️ **Backend Technologies**
 - **Java**
@@ -31,4 +35,5 @@ Perfect — here’s your updated list including **unit testing** with JUnit:
 
 ---
 
-Would you like a full Maven `pom.xml` with these dependencies included?
+### Database
+
