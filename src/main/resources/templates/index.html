@@ -78,7 +78,7 @@
             <div class="book-details" th:if="${book.publicationDate}">Published: <span th:text="${#temporals.format(book.publicationDate, 'dd MMM yyyy')}">Publication Date</span></div>
             <div class="book-details" th:if="${book.pageCount}">Pages: <span th:text="${book.pageCount}">Page Count</span></div>
             <div class="book-details" th:if="${book.language}">Language: <span th:text="${book.language}">Language</span></div>
-            <div class="book-details" th:if="${book.description != null && book.description.contains('[')}">Country: <span th:text="${#strings.substring(book.description, #strings.indexOf(book.description, '[') + 1, #strings.indexOf(book.description, ']'))}">Country</span></div>
+            <div class="book-details" th:if="${book.pageCount}">Country: <span th:text="${book.publisher.address.city.state.country.name}">Country Name</span></div>
             <div class="book-price" th:text="${'$' + book.price}">$0.00</div>
         </div>
     </div>
