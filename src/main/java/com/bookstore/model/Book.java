@@ -4,8 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -22,10 +20,7 @@ public class Book {
     private String subtitle;
     private String isbn13;
     private String isbn10;
-    
-    @ManyToOne
-    @JoinColumn(name = "publisher_id", nullable = false)
-    private Publisher publisher;
+    private Long publisherId;
     
     private LocalDate publicationDate;
     private String edition;
@@ -78,12 +73,12 @@ public class Book {
         this.isbn10 = isbn10;
     }
     
-    public Publisher getPublisher() {
-        return publisher;
+    public Long getPublisherId() {
+        return publisherId;
     }
     
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
+    public void setPublisherId(Long publisherId) {
+        this.publisherId = publisherId;
     }
     
     public LocalDate getPublicationDate() {

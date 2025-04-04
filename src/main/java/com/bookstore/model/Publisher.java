@@ -6,9 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.Set;
 
 @Entity
 @Table(name = "Publishers")
@@ -26,9 +24,6 @@ public class Publisher {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
-    
-    @OneToMany(mappedBy = "publisher")
-    private Set<Book> books;
     
     public Long getId() {
         return id;
@@ -76,13 +71,5 @@ public class Publisher {
     
     public void setAddress(Address address) {
         this.address = address;
-    }
-    
-    public Set<Book> getBooks() {
-        return books;
-    }
-    
-    public void setBooks(Set<Book> books) {
-        this.books = books;
     }
 }
