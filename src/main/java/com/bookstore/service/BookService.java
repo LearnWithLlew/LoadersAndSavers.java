@@ -20,6 +20,13 @@ public class BookService {
     
     public List<Book> getTop10Books() {
         Pageable pageable = PageRequest.of(0, 10);
-        return bookRepository.findTop10Books(pageable);
+        List<Book> books = bookRepository.findTop10Books(pageable);
+        
+        for (Book book : books) {
+            String publisherCountry = book.getPublisher().getAddress().getCity().getState().getCountry().getName();
+            book.setDescription(book.getDescription() + " [" + publisherCountry + "]");
+        }
+        
+        return books;
     }
 }
