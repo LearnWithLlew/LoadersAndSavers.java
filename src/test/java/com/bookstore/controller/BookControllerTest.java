@@ -1,18 +1,12 @@
 package com.bookstore.controller;
 
-import com.bookstore.model.Address;
-import com.bookstore.model.Book;
-import com.bookstore.model.City;
-import com.bookstore.model.Country;
-import com.bookstore.model.Publisher;
-import com.bookstore.model.State;
+import com.bookstore.model.*;
 import com.bookstore.service.BookService;
 import org.approvaltests.Approvals;
 import org.approvaltests.core.Options;
+import org.approvaltests.reporters.DiffReporter;
 import org.approvaltests.reporters.FileLauncherReporter;
 import org.approvaltests.reporters.MultiReporter;
-import org.approvaltests.reporters.UseReporter;
-import org.approvaltests.reporters.DiffReporter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -27,10 +21,9 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(BookController.class)
-@UseReporter(DiffReporter.class)
 public class BookControllerTest {
 
     @Autowired
@@ -47,19 +40,19 @@ public class BookControllerTest {
         // Create state
         State state = new State();
         state.setCountry(country);
-        
+
         // Create city
         City city = new City();
         city.setState(state);
-        
+
         // Create address
         Address address = new Address();
         address.setCity(city);
-        
+
         // Create publisher
         Publisher publisher = new Publisher();
         publisher.setAddress(address);
-        
+
         // Create book
         Book book = new Book();
         book.setTitle("Twilit");
@@ -71,14 +64,13 @@ public class BookControllerTest {
         book.setLanguage("English");
         book.setDescription("Girl falls in love with a slightly illuminated vampire");
         book.setPrice(new BigDecimal("12.99"));
-        
+
         return book;
     }
 
     @Test
     public void testListBooks() throws Exception {
-        Book book = getBook();
-        List<Book> books = Arrays.asList(book);
+        List<Book> books = List.of(getBook());
         when(bookService.getTop10Books()).thenReturn(books);
 
         MvcResult result = mockMvc.perform(get("/"))
