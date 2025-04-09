@@ -1,6 +1,5 @@
 package com.bookstore.controller;
 
-import com.spun.util.logger.SimpleLogger;
 import org.approvaltests.Approvals;
 import org.approvaltests.core.Options;
 import org.approvaltests.reporters.DiffReporter;
