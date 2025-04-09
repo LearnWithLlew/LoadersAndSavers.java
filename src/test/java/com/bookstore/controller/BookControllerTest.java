@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.ui.ConcurrentModel;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -92,17 +93,17 @@ public class BookControllerTest {
         List<Book> books = List.of(getBook());
         when(bookService.getTop10Books()).thenReturn(books);
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        Context context = new Context();
-        context.setVariable("books", books);
-        String page = "index";
+        var model = new ConcurrentModel();
+        String page = new BookController(bookService).listBooks(model);
 
-        String htmlOutput = renderPage(templateEngine, page, context);
+        String htmlOutput = renderPage(templateEngine, page, model);
 
         Approvals.verifyHtml(htmlOutput,
             new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
     }
 
-    private static String renderPage(SpringTemplateEngine templateEngine, String page, Context context) {
+    private static String renderPage(SpringTemplateEngine templateEngine, String page, ConcurrentModel model) {
+        Context context = new Context(null, model.asMap());
         var templateResolver = new org.thymeleaf.templateresolver.ClassLoaderTemplateResolver();
         templateResolver.setPrefix("templates/");
         templateResolver.setSuffix(".html");
