@@ -14,9 +14,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.ui.ConcurrentModel;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.spring6.SpringTemplateEngine;
-import org.thymeleaf.templatemode.TemplateMode;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -95,7 +92,7 @@ public class BookControllerTest {
         var model = new ConcurrentModel();
 
         String page = new BookController(bookService).listBooks(model);
-        String htmlOutput = renderPage(page, model);
+        String htmlOutput = ThymeleafUtils.renderPage(page, model);
 
         Approvals.verifyHtml(htmlOutput,
             new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
@@ -106,22 +103,10 @@ public class BookControllerTest {
         var model = new ConcurrentModel();
         String page = BookController.listBooks(model, () -> List.of(getBook()));
 
-        String htmlOutput = renderPage(page, model);
+        String htmlOutput = ThymeleafUtils.renderPage(page, model);
 
         Approvals.verifyHtml(htmlOutput,
             new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
     }
 
-    private static String renderPage(String page, ConcurrentModel model) {
-        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        Context context = new Context(null, model.asMap());
-        var templateResolver = new org.thymeleaf.templateresolver.ClassLoaderTemplateResolver();
-        templateResolver.setPrefix("templates/");
-        templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode(TemplateMode.HTML);
-        templateResolver.setCharacterEncoding("UTF-8");
-        templateEngine.setTemplateResolver(templateResolver);
-
-        return templateEngine.process(page, context);
-    }
 }
