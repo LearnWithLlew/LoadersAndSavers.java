@@ -92,17 +92,28 @@ public class BookControllerTest {
     public void testDirectRenderingOfThymeleafTemplate() throws Exception {
         List<Book> books = List.of(getBook());
         when(bookService.getTop10Books()).thenReturn(books);
-        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         var model = new ConcurrentModel();
-        String page = new BookController(bookService).listBooks(model);
 
-        String htmlOutput = renderPage(templateEngine, page, model);
+        String page = new BookController(bookService).listBooks(model);
+        String htmlOutput = renderPage(page, model);
 
         Approvals.verifyHtml(htmlOutput,
             new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
     }
 
-    private static String renderPage(SpringTemplateEngine templateEngine, String page, ConcurrentModel model) {
+    @Test
+    public void testDirectRenderingOfThymeleafTemplateWithLoader() throws Exception {
+        var model = new ConcurrentModel();
+        String page = BookController.listBooks(model, () -> List.of(getBook()));
+
+        String htmlOutput = renderPage(page, model);
+
+        Approvals.verifyHtml(htmlOutput,
+            new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
+    }
+
+    private static String renderPage(String page, ConcurrentModel model) {
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         Context context = new Context(null, model.asMap());
         var templateResolver = new org.thymeleaf.templateresolver.ClassLoaderTemplateResolver();
         templateResolver.setPrefix("templates/");

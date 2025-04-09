@@ -75,6 +75,12 @@
             <version>24.19.0</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.approvaltests</groupId>
+            <artifactId>approvaltests-util</artifactId>
+            <version>24.19.0</version>
+        </dependency>
     </dependencies>
     
     <build>
