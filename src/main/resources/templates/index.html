@@ -74,6 +74,7 @@
         <div th:each="book : ${books}" class="book-card">
             <div class="book-title" th:text="${book.title}">Book Title</div>
             <div th:if="${book.subtitle}" class="book-subtitle" th:text="${book.subtitle}">Book Subtitle</div>
+            <div th:if="${book.description}" class="book-subtitle" th:text="${book.description}">Book Description</div>
             <div class="book-details" th:if="${book.isbn13}">ISBN-13: <span th:text="${book.isbn13}">ISBN-13</span></div>
             <div class="book-details" th:if="${book.publicationDate}">Published: <span th:text="${#temporals.format(book.publicationDate, 'dd MMM yyyy')}">Publication Date</span></div>
             <div class="book-details" th:if="${book.pageCount}">Pages: <span th:text="${book.pageCount}">Page Count</span></div>

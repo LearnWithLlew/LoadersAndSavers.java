@@ -42,53 +42,34 @@ public class BookControllerTest {
     private Book getBook() {
         // Create country
         Country country = new Country();
-        country.setId(1L);
         country.setName("United States");
-        country.setCode("USA");
-        
+
         // Create state
         State state = new State();
-        state.setId(2L);
-        state.setName("California");
-        state.setCode("CA");
         state.setCountry(country);
         
         // Create city
         City city = new City();
-        city.setId(2L);
-        city.setName("Los Angeles");
-        city.setPostalCode("90001");
         city.setState(state);
         
         // Create address
         Address address = new Address();
-        address.setId(2L);
-        address.setStreetLine1("456 Book Street");
         address.setCity(city);
         
         // Create publisher
         Publisher publisher = new Publisher();
-        publisher.setId(2L);
-        publisher.setName("Mockingbird Books");
-        publisher.setWebsite("www.mockingbirdbooks.com");
-        publisher.setEmail("contact@mockingbirdbooks.com");
-        publisher.setPhone("555-234-5678");
         publisher.setAddress(address);
         
         // Create book
         Book book = new Book();
-        book.setId(7L);
         book.setTitle("Twilit");
         book.setSubtitle("A Vampire Romance Parody");
         book.setIsbn13("9783456789012");
-        book.setIsbn10("3456789012");
         book.setPublisher(publisher);
         book.setPublicationDate(LocalDate.of(2008, 10, 5));
-        book.setEdition("1st");
         book.setPageCount(498);
         book.setLanguage("English");
         book.setDescription("Girl falls in love with a slightly illuminated vampire");
-        book.setCoverImageUrl("https://example.com/covers/twilit.jpg");
         book.setPrice(new BigDecimal("12.99"));
         
         return book;
