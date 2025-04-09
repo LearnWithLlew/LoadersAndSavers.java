@@ -24,7 +24,11 @@ public class BookControllerDirectTest {
 
     @Test
     public void testDirectRendering() throws Exception {
-        verifyHtml(m -> BookController.listBooks(m, () -> List.of(BookUtils.getTwilit())));
+        verifyHtml(m ->
+            BookController.listBooks(
+                m,
+                () -> List.of(BookUtils.getTwilit())
+            ));
     }
 
     private void verifyHtml(Function1<Model, String> call) {
