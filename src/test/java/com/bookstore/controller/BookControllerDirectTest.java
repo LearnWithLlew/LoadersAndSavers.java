@@ -1,13 +1,11 @@
 package com.bookstore.controller;
 
-import com.bookstore.model.Book;
-import com.spun.util.persistence.Loader;
 import org.approvaltests.Approvals;
 import org.approvaltests.reporters.DiffReporter;
 import org.approvaltests.reporters.FileLauncherReporter;
 import org.approvaltests.reporters.UseReporter;
 import org.junit.jupiter.api.Test;
-import org.lambda.functions.Function2;
+import org.lambda.functions.Function1;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
 
@@ -26,13 +24,12 @@ public class BookControllerDirectTest {
 
     @Test
     public void testDirectRendering() throws Exception {
-        Function2<Model, Loader<List<Book>>, String> stuff = BookController::listBooks;
-        verifyHtml(stuff, () -> List.of(BookUtils.getTwilit()));
+        verifyHtml(m -> BookController.listBooks(m, () -> List.of(BookUtils.getTwilit())));
     }
 
-    private <P1> void verifyHtml(Function2<Model, P1, String> call, P1 p1) {
+    private void verifyHtml(Function1<Model, String> call) {
         var model = new ConcurrentModel();
-        String page = call.call(model, p1);
+        String page = call.call(model);
         String htmlOutput = ThymeleafUtils.renderPage(page, model);
         Approvals.verifyHtml(htmlOutput);
     }
