@@ -13,10 +13,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+import org.thymeleaf.templatemode.TemplateMode;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
@@ -28,6 +30,9 @@ public class BookControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private BookController bookController;
 
     @MockBean
     private BookService bookService;
@@ -80,5 +85,31 @@ public class BookControllerTest {
         String htmlOutput = result.getResponse().getContentAsString();
         Approvals.verifyHtml(htmlOutput,
             new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
+    }
+
+    @Test
+    public void testDirectRenderingOfThymeleafTemplate() throws Exception {
+        List<Book> books = List.of(getBook());
+        when(bookService.getTop10Books()).thenReturn(books);
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        Context context = new Context();
+        context.setVariable("books", books);
+        String page = "index";
+
+        String htmlOutput = renderPage(templateEngine, page, context);
+
+        Approvals.verifyHtml(htmlOutput,
+            new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
+    }
+
+    private static String renderPage(SpringTemplateEngine templateEngine, String page, Context context) {
+        var templateResolver = new org.thymeleaf.templateresolver.ClassLoaderTemplateResolver();
+        templateResolver.setPrefix("templates/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCharacterEncoding("UTF-8");
+        templateEngine.setTemplateResolver(templateResolver);
+
+        return templateEngine.process(page, context);
     }
 }
