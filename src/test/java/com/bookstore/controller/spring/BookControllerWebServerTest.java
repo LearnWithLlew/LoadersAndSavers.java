@@ -1,5 +1,7 @@
-package com.bookstore.controller;
+package com.bookstore.controller.spring;
 
+import com.bookstore.controller.BookController;
+import com.bookstore.controller.BookUtils;
 import com.bookstore.model.Book;
 import com.bookstore.service.BookService;
 import org.approvaltests.Approvals;

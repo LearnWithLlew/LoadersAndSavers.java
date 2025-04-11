@@ -1,5 +1,8 @@
-package com.bookstore.controller;
+package com.bookstore.controller.loaders_and_savers;
 
+import com.bookstore.controller.BookController;
+import com.bookstore.controller.BookUtils;
+import com.bookstore.controller.ThymeleafUtils;
 import org.approvaltests.Approvals;
 import org.approvaltests.reporters.DiffReporter;
 import org.approvaltests.reporters.FileLauncherReporter;

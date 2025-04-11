@@ -1,5 +1,8 @@
-package com.bookstore.controller;
+package com.bookstore.controller.mockito;
 
+import com.bookstore.controller.BookController;
+import com.bookstore.controller.BookUtils;
+import com.bookstore.controller.ThymeleafUtils;
 import com.bookstore.model.Book;
 import com.bookstore.service.BookService;
 import org.approvaltests.Approvals;
