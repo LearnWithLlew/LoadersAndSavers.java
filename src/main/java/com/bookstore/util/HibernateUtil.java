@@ -29,6 +29,8 @@ public class HibernateUtil {
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.DerbyDialect");
                 settings.put(Environment.SHOW_SQL, "true");
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+                settings.put(Environment.GLOBALLY_QUOTED_IDENTIFIERS, "true");
+                settings.put("hibernate.globally_quoted_identifiers_skip_column_definitions", "true");
                 
                 configuration.setProperties(settings);
                 
