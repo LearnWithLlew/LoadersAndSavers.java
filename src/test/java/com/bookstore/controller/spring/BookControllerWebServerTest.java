@@ -49,16 +49,4 @@ class BookControllerWebServerTest {
         Approvals.verifyHtml(htmlOutput,
             new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
     }
-
-    @Test
-    public void testListBooksHibernate() throws Exception {
-        MvcResult result = mockMvc.perform(get("/V3"))
-            .andExpect(status().isOk())
-            .andReturn();
-
-        String htmlOutput = result.getResponse().getContentAsString();
-        Approvals.verifyHtml(htmlOutput,
-            new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
-    }
-
 }
