@@ -24,14 +24,14 @@ public class BookControllerDirectTest {
 
     @Test
     public void testDirectRendering() throws Exception {
-        verifyHtml(m ->
+        verifyRenderedHtml(m ->
             BookController.listBooks(
                 m,
                 () -> List.of(BookUtils.getTwilit())
             ));
     }
 
-    private void verifyHtml(Function1<Model, String> call) {
+    private void verifyRenderedHtml(Function1<Model, String> call) {
         var model = new ConcurrentModel();
         String page = call.call(model);
         String htmlOutput = ThymeleafUtils.renderPage(page, model);
