@@ -2,6 +2,7 @@ package com.bookstore.controller;
 
 import com.bookstore.model.Book;
 import com.bookstore.service.BookService;
+import com.bookstore.service.HibernateBookService;
 import com.spun.util.persistence.Loader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +15,12 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
+    private final HibernateBookService hibernateBookService;
     
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, HibernateBookService hibernateBookService) {
         this.bookService = bookService;
+        this.hibernateBookService = hibernateBookService;
     }
     
     @GetMapping("/")
@@ -33,6 +36,12 @@ public class BookController {
 
     public static String listBooks(Model model, Loader<List<Book>> loader) {
         model.addAttribute("books", loader.load());
+        return "index";
+    }
+    
+    @GetMapping("/V3")
+    public String listBooksV3(Model model) {
+        model.addAttribute("books", hibernateBookService.getTop10Books());
         return "index";
     }
 }

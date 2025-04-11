@@ -5,6 +5,7 @@ import com.bookstore.controller.BookUtils;
 import com.bookstore.controller.ThymeleafUtils;
 import com.bookstore.model.Book;
 import com.bookstore.service.BookService;
+import com.bookstore.service.HibernateBookService;
 import org.approvaltests.Approvals;
 import org.approvaltests.core.Options;
 import org.approvaltests.reporters.DiffReporter;
@@ -23,12 +24,13 @@ public class BookControllerTest {
     @Test
     public void testDirectRenderingOfThymeleafTemplate() throws Exception {
         BookService bookService = mock(BookService.class);
+        HibernateBookService hibernateBookService = mock(HibernateBookService.class);
         
         List<Book> books = List.of(BookUtils.getTwilit());
         when(bookService.getTop10Books()).thenReturn(books);
         var model = new ConcurrentModel();
 
-        String page = new BookController(bookService).listBooks(model);
+        String page = new BookController(bookService, hibernateBookService).listBooks(model);
         String htmlOutput = ThymeleafUtils.renderPage(page, model);
 
         Approvals.verifyHtml(htmlOutput,

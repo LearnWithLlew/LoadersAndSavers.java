@@ -4,6 +4,7 @@ import com.bookstore.controller.BookController;
 import com.bookstore.controller.BookUtils;
 import com.bookstore.model.Book;
 import com.bookstore.service.BookService;
+import com.bookstore.service.HibernateBookService;
 import org.approvaltests.Approvals;
 import org.approvaltests.core.Options;
 import org.approvaltests.reporters.DiffReporter;
@@ -31,6 +32,9 @@ class BookControllerWebServerTest {
     @MockBean
     private BookService bookService;
 
+    @MockBean
+    private HibernateBookService hibernateBookService;
+
     @Test
     public void testListBooks() throws Exception {
         List<Book> books = List.of(BookUtils.getTwilit());
@@ -45,5 +49,18 @@ class BookControllerWebServerTest {
             new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
     }
 
+    @Test
+    public void testListBooksHibernate() throws Exception {
+        List<Book> books = List.of(BookUtils.getTwilit());
+        when(bookService.getTop10Books()).thenReturn(books);
+
+        MvcResult result = mockMvc.perform(get("/V3"))
+            .andExpect(status().isOk())
+            .andReturn();
+
+        String htmlOutput = result.getResponse().getContentAsString();
+        Approvals.verifyHtml(htmlOutput,
+            new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
+    }
 
 }
