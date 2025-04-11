@@ -5,17 +5,27 @@ import org.approvaltests.reporters.DiffReporter;
 import org.approvaltests.reporters.FileLauncherReporter;
 import org.approvaltests.reporters.UseReporter;
 import org.junit.jupiter.api.Test;
+import org.lambda.functions.Function1;
 import org.springframework.ui.ConcurrentModel;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
 @UseReporter({DiffReporter.class, FileLauncherReporter.class})
-public class BookControllerDirectTest {
+public class BookControllerDirectSimplifiedTest {
 
     @Test
-    public void testDirectRenderingOfThymeleafTemplateWithLoader() throws Exception {
+    public void testDirectRendering() throws Exception {
+        verifyRenderedHtml(m ->
+            BookController.listBooks(
+                m,
+                () -> List.of(BookUtils.getTwilit())
+            ));
+    }
+
+    private void verifyRenderedHtml(Function1<Model, String> call) {
         var model = new ConcurrentModel();
-        String page = BookController.listBooks(model, () -> List.of(BookUtils.getTwilit()));
+        String page = call.call(model);
         String htmlOutput = ThymeleafUtils.renderPage(page, model);
         Approvals.verifyHtml(htmlOutput);
     }
