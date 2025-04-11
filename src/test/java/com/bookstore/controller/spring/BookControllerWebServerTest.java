@@ -11,6 +11,7 @@ import org.approvaltests.reporters.DiffReporter;
 import org.approvaltests.reporters.FileLauncherReporter;
 import org.approvaltests.reporters.MultiReporter;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -51,9 +52,6 @@ class BookControllerWebServerTest {
 
     @Test
     public void testListBooksHibernate() throws Exception {
-        List<Book> books = List.of(BookUtils.getTwilit());
-        when(bookService.getTop10Books()).thenReturn(books);
-
         MvcResult result = mockMvc.perform(get("/V3"))
             .andExpect(status().isOk())
             .andReturn();

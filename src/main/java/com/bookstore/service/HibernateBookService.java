@@ -39,7 +39,10 @@ public class HibernateBookService {
         Map<Long, State> stateMap = new HashMap<>();
         Map<Long, Country> countryMap = new HashMap<>();
 
-        String sql = "SELECT * FROM Books b " +
+        String sql = "SELECT b.*, p.*, a.*, c.id as city_id, c.name as city_name, c.postal_code, " +
+                "s.id as state_id, s.name as state_name, s.code as state_code, " +
+                "co.id as country_id, co.name as country_name, co.code as country_code " +
+                "FROM Books b " +
                 "LEFT JOIN Publishers p ON p.id = b.publisher_id " +
                 "LEFT JOIN Addresses a ON a.id = p.address_id " +
                 "LEFT JOIN Cities c ON c.id = a.city_id " +
@@ -152,7 +155,7 @@ public class HibernateBookService {
                                 if (city == null) {
                                     city = new City();
                                     city.setId(cityId);
-                                    city.setName(rs.getString("c.NAME"));
+                                    city.setName(rs.getString("city_name"));
                                     city.setPostalCode(rs.getString("POSTAL_CODE"));
                                     
                                     // Create default objects to avoid null pointer exceptions
@@ -174,8 +177,8 @@ public class HibernateBookService {
                                     if (state == null) {
                                         state = new State();
                                         state.setId(stateId);
-                                        state.setName(rs.getString("s.NAME"));
-                                        state.setCode(rs.getString("s.CODE"));
+                                        state.setName(rs.getString("state_name"));
+                                        state.setCode(rs.getString("state_code"));
                                         
                                         // Create default objects to avoid null pointer exceptions
                                         Country country = new Country();
@@ -192,8 +195,8 @@ public class HibernateBookService {
                                         if (country == null) {
                                             country = new Country();
                                             country.setId(countryId);
-                                            country.setName(rs.getString("co.NAME"));
-                                            country.setCode(rs.getString("co.CODE"));
+                                            country.setName(rs.getString("country_name"));
+                                            country.setCode(rs.getString("country_code"));
                                             countryMap.put(countryId, country);
                                         }
                                         state.setCountry(country);
