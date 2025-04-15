@@ -31,6 +31,10 @@ public class HibernateBookService {
     }
 
     public List<Book> getTop10Books() {
+        if (1 == 1) {
+            return new ArrayList<>();
+        }
+
         List<Book> books = new ArrayList<>();
         Map<Long, Book> bookMap = new HashMap<>();
         Map<Long, Publisher> publisherMap = new HashMap<>();

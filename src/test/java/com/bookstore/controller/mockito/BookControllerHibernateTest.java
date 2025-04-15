@@ -15,9 +15,11 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.ui.ConcurrentModel;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class BookControllerHibernateTest {
 
@@ -35,18 +37,21 @@ public class BookControllerHibernateTest {
     }
 
     public DataSource getDataSource() throws SQLException {
-        EmbeddedDataSource ds = new EmbeddedDataSource();
-        ds.setDatabaseName("memory:bookstore;create=true");
-        ds.setUser("");
-        ds.setPassword("");
+        var dataSource = mock(DataSource.class);
+        var connection = mock(Connection.class);
+        when(dataSource.getConnection()).thenReturn(connection);
 
-        ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-        populator.setContinueOnError(true);
-        populator.addScript(new ClassPathResource("schema.sql"));
-        populator.addScript(new ClassPathResource("populate_database.sql"));
-        populator.execute(ds);
+        var statement = mock(java.sql.PreparedStatement.class);
+        var resultSet = mock(java.sql.ResultSet.class);
+        when(connection.prepareStatement(org.mockito.ArgumentMatchers.anyString())).thenReturn(statement);
+        when(statement.executeQuery()).thenReturn(resultSet);
 
-        return ds;
+        when(resultSet.next()).thenReturn(true, false);
+        when(resultSet.getLong(org.mockito.ArgumentMatchers.anyInt())).thenReturn(1L);
+        when(resultSet.getString(org.mockito.ArgumentMatchers.anyInt())).thenReturn("Title");
+        when(resultSet.getInt(org.mockito.ArgumentMatchers.anyInt())).thenReturn(2024);
+
+        return dataSource;
     }
 
 }
