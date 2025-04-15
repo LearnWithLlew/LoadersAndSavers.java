@@ -189,18 +189,9 @@ public class HibernateBookService {
                                     city.setState(state);
                                     
                                     // Process Country
-                                    Long countryId = rs.getLong("COUNTRY_ID");
-                                    if (!rs.wasNull()) {
-                                        Country country = countryMap.get(countryId);
-                                        if (country == null) {
-                                            country = new Country();
-                                            country.setId(countryId);
-                                            country.setName(rs.getString("country_name"));
-                                            country.setCode(rs.getString("country_code"));
-                                            countryMap.put(countryId, country);
-                                        }
-                                        state.setCountry(country);
-                                    }
+                                    Country country = new Country(rs);
+                                    state.setCountry(country);
+                                    countryMap.put(country.getId(), country);
                                 }
                             }
                         }

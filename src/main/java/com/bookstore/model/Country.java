@@ -6,11 +6,23 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Set;
 
 @Entity
 @Table(name = "Countries")
 public class Country {
+
+    public Country() {
+    }
+
+    public Country(ResultSet rs) throws SQLException {
+        this.id = rs.getLong("COUNTRY_ID");
+        this.name = rs.getString("country_name");
+        this.code = rs.getString("country_code");
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
