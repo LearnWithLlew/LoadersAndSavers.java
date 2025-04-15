@@ -83,10 +83,8 @@ public class HibernateBookService {
                         Address address = new Address();
                         City city = new City();
                         State state = new State();
-                        Country country = new Country();
-                        
+
                         // Set up the object graph with default objects
-                        state.setCountry(country);
                         city.setState(state);
                         address.setCity(city);
                         publisher.setAddress(address);
@@ -112,10 +110,8 @@ public class HibernateBookService {
                             Address address = new Address();
                             City city = new City();
                             State state = new State();
-                            Country country = new Country();
-                            
+
                             // Set up the object graph with default objects
-                            state.setCountry(country);
                             city.setState(state);
                             address.setCity(city);
                             publisher.setAddress(address);
@@ -137,10 +133,8 @@ public class HibernateBookService {
                                 // Create default objects to avoid null pointer exceptions
                                 City city = new City();
                                 State state = new State();
-                                Country country = new Country();
-                                
+
                                 // Set up the object graph with default objects
-                                state.setCountry(country);
                                 city.setState(state);
                                 address.setCity(city);
                                 
@@ -160,10 +154,8 @@ public class HibernateBookService {
                                     
                                     // Create default objects to avoid null pointer exceptions
                                     State state = new State();
-                                    Country country = new Country();
-                                    
+
                                     // Set up the object graph with default objects
-                                    state.setCountry(country);
                                     city.setState(state);
                                     
                                     cityMap.put(cityId, city);
@@ -179,11 +171,6 @@ public class HibernateBookService {
                                         state.setId(stateId);
                                         state.setName(rs.getString("state_name"));
                                         state.setCode(rs.getString("state_code"));
-                                        
-                                        // Create default objects to avoid null pointer exceptions
-                                        Country country = new Country();
-                                        state.setCountry(country);
-                                        
                                         stateMap.put(stateId, state);
                                     }
                                     city.setState(state);
