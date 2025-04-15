@@ -81,7 +81,7 @@ public class BookControllerHibernateTest {
 
         var model = new ConcurrentModel();
 
-        String page = new BookController(null, hibernateBookService).listBooksV3(model);
+        String page = new BookController(hibernateBookService).listBooks(model);
         String htmlOutput = ThymeleafUtils.renderPage(page, model);
 
         Approvals.verifyHtml(htmlOutput,

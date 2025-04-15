@@ -19,7 +19,7 @@ class EndToEndTest {
 
     @Test
     void testV3Endpoint() {
-        ResponseEntity<String> response = restTemplate.getForEntity("/V3", String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity("/", String.class);
 
         String htmlOutput = response.getBody();
         Approvals.verifyHtml(htmlOutput,
