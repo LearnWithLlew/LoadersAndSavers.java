@@ -59,8 +59,9 @@ public class City {
         return state;
     }
     
-    public void setState(State state) {
+    public City setState(State state) {
         this.state = state;
+        return this;
     }
     
     public Set<Address> getAddresses() {

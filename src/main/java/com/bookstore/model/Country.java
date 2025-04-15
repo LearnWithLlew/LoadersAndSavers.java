@@ -34,8 +34,9 @@ public class Country {
         return name;
     }
     
-    public void setName(String name) {
+    public Country setName(String name) {
         this.name = name;
+        return this;
     }
     
     public String getCode() {

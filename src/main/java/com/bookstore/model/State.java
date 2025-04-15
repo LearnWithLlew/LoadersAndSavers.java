@@ -59,8 +59,9 @@ public class State {
         return country;
     }
     
-    public void setCountry(Country country) {
+    public State setCountry(Country country) {
         this.country = country;
+        return this;
     }
     
     public Set<City> getCities() {

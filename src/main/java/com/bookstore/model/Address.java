@@ -56,8 +56,9 @@ public class Address {
         return city;
     }
     
-    public void setCity(City city) {
+    public Address setCity(City city) {
         this.city = city;
+        return this;
     }
     
     public Set<Publisher> getPublishers() {

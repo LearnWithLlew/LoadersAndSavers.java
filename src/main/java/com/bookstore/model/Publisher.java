@@ -69,7 +69,8 @@ public class Publisher {
         return address;
     }
     
-    public void setAddress(Address address) {
+    public Publisher setAddress(Address address) {
         this.address = address;
+        return this;
     }
 }
