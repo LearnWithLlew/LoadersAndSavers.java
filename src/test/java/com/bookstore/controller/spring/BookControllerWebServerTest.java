@@ -2,6 +2,7 @@ package com.bookstore.controller.spring;
 
 import com.bookstore.controller.BookController;
 import com.bookstore.controller.BookUtils;
+import com.bookstore.controller.mockito.BookControllerHibernateTest;
 import com.bookstore.model.Book;
 import com.bookstore.service.HibernateBookService;
 import org.approvaltests.Approvals;
@@ -16,8 +17,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
 import java.util.List;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,19 +33,18 @@ class BookControllerWebServerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private HibernateBookService hibernateBookService;
+    private DataSource dataSource;
 
-//    @Test
-//    public void testListBooks() throws Exception {
-//        List<Book> books = List.of(BookUtils.getTwilit());
-//        when(hibernateBookService.getTop10Books()).thenReturn(books);
-//
-//        MvcResult result = mockMvc.perform(get("/"))
-//            .andExpect(status().isOk())
-//            .andReturn();
-//
-//        String htmlOutput = result.getResponse().getContentAsString();
-//        Approvals.verifyHtml(htmlOutput,
-//            new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
-//    }
+    @Test
+    public void testListBooks() throws Exception {
+        BookControllerHibernateTest.setupDataSource(dataSource);
+
+        MvcResult result = mockMvc.perform(get("/"))
+            .andExpect(status().isOk())
+            .andReturn();
+
+        String htmlOutput = result.getResponse().getContentAsString();
+        Approvals.verifyHtml(htmlOutput,
+            new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
+    }
 }

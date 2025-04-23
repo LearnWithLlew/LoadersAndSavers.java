@@ -13,6 +13,7 @@ import org.springframework.ui.ConcurrentModel;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -22,6 +23,17 @@ public class BookControllerHibernateTest {
     @Test
     public void testDirectRenderingOfThymeleafTemplate() throws Exception {
         var dataSource = mock(DataSource.class);
+        setupDataSource(dataSource);
+        var model = new ConcurrentModel();
+
+        String page = new BookController(dataSource).listBooks(model);
+        String htmlOutput = ThymeleafUtils.renderPage(page, model);
+
+        Approvals.verifyHtml(htmlOutput,
+            new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
+    }
+
+    public static void setupDataSource(DataSource dataSource) throws SQLException {
         var connection = mock(Connection.class);
         when(dataSource.getConnection()).thenReturn(connection);
 
@@ -76,16 +88,6 @@ public class BookControllerHibernateTest {
 
         // wasNull logic for IDs (none are null)
         when(resultSet.wasNull()).thenReturn(false);
-
-        HibernateBookService hibernateBookService = new HibernateBookService(dataSource);
-
-        var model = new ConcurrentModel();
-
-        String page = new BookController(dataSource).listBooks(model);
-        String htmlOutput = ThymeleafUtils.renderPage(page, model);
-
-        Approvals.verifyHtml(htmlOutput,
-            new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
     }
 
 }
