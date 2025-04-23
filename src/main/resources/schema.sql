@@ -4,6 +4,7 @@
 -- Note: These statements will fail on first run when tables don't exist yet
 -- The application will continue despite these errors
 
+DROP TABLE PageViews;
 DROP TABLE Reviews;
 DROP TABLE OrderItems;
 DROP TABLE Orders;
@@ -206,6 +207,19 @@ CREATE TABLE Reviews (
     CONSTRAINT chk_reviews_rating CHECK (rating BETWEEN 1 AND 5)
 );
 
+-- PageViews
+CREATE TABLE PageViews (
+    id INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) PRIMARY KEY,
+    ip_address VARCHAR(45),
+    country_id INT,
+    visit_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    user_agent VARCHAR(255),
+    session_id VARCHAR(100),
+    referrer_url VARCHAR(255),
+    page_url VARCHAR(255) NOT NULL,
+    CONSTRAINT fk_pageviews_country FOREIGN KEY (country_id) REFERENCES Countries(id)
+);
+
 -- Create Indexes
 CREATE INDEX idx_books_title ON Books(title);
 CREATE INDEX idx_books_publication_date ON Books(publication_date);
@@ -215,3 +229,5 @@ CREATE INDEX idx_orders_order_date ON Orders(order_date);
 CREATE INDEX idx_order_items_order_id ON OrderItems(order_id);
 CREATE INDEX idx_order_items_book_id ON OrderItems(book_id);
 CREATE INDEX idx_reviews_book_id ON Reviews(book_id);
+CREATE INDEX idx_pageviews_country ON PageViews(country_id);
+CREATE INDEX idx_pageviews_timestamp ON PageViews(visit_timestamp);

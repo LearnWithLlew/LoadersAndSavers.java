@@ -278,3 +278,7 @@ INSERT INTO Reviews (book_id, customer_id, rating, review_text) VALUES
 (24, 3, 5, CAST('A masterpiece of parody literature.' AS CLOB)),
 (26, 3, 4, CAST('The fish perspective was unexpectedly deep.' AS CLOB)),
 (11, 3, 5, CAST('The cod conspiracy had me in stitches!' AS CLOB));
+
+-- Insert sample PageViews data
+INSERT INTO PageViews (ip_address, country_id, visit_timestamp, user_agent, session_id, referrer_url, page_url) VALUES
+('192.168.1.1', 1, TIMESTAMP('2025-04-20 10:15:32'), 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', 'session1234567890', 'https://www.google.com/search?q=best+books', 'http://localhost:8080/'),

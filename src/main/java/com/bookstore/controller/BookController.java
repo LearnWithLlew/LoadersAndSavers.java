@@ -1,7 +1,7 @@
 package com.bookstore.controller;
 
 import com.bookstore.model.*;
-import com.spun.util.persistence.Loader;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,10 @@ public class BookController {
     }
 
     @GetMapping("/")
-    public String listBooks(Model model) {
+    public String listBooks(Model model, HttpServletRequest request) {
+        // Record page view
+        savePageView(request);
+        
         List<Book> books1 = new ArrayList<>();
         Map<Long, Book> bookMap = new HashMap<>();
         Map<Long, Publisher> publisherMap = new HashMap<>();
@@ -193,14 +197,103 @@ public class BookController {
         model.addAttribute("books", books);
         return "index";
     }
-
-    @GetMapping("/V2")
-    public String listBooksV2(Model model) {
-        return listBooks(model, null);
+    
+    private void savePageView(HttpServletRequest request) {
+        String ipAddress = getClientIpAddress(request);
+        String userAgent = request.getHeader("User-Agent");
+        String referrer = request.getHeader("Referer");
+        String pageUrl = request.getRequestURL().toString();
+        String sessionId = request.getSession().getId();
+        
+        // Get country from IP address (simplified version - in production, use a geolocation service)
+        Country country = getCountryFromIp(ipAddress);
+        
+        // Save page view to database
+        String sql = "INSERT INTO PageViews (ip_address, country_id, visit_timestamp, user_agent, session_id, referrer_url, page_url) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setString(1, ipAddress);
+            ps.setLong(2, country != null ? country.getId() : null);
+            ps.setTimestamp(3, java.sql.Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(4, userAgent);
+            ps.setString(5, sessionId);
+            ps.setString(6, referrer);
+            ps.setString(7, pageUrl);
+            
+            ps.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
-    public static String listBooks(Model model, Loader<List<Book>> loader) {
-        model.addAttribute("books", loader.load());
-        return "index";
+    
+    private String getClientIpAddress(HttpServletRequest request) {
+        String ipAddress = request.getHeader("X-Forwarded-For");
+        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getHeader("Proxy-Client-IP");
+        }
+        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getRemoteAddr();
+        }
+        // If multiple IP addresses are found (comma-separated), take the first one
+        if (ipAddress != null && ipAddress.contains(",")) {
+            ipAddress = ipAddress.split(",")[0].trim();
+        }
+        return ipAddress;
+    }
+    
+    private Country getCountryFromIp(String ipAddress) {
+        // In a real application, you would use a geolocation service like MaxMind GeoIP
+        // For this example, we'll look up the country from our database or return a default
+        
+        // Try to find a country based on the first octet of the IP (very simplified approach)
+        String firstOctet = ipAddress.split("\\.")[0];
+        
+        String sql = "SELECT * FROM Countries WHERE id = ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            // This is a simplified mapping - in production use a proper geolocation service
+            int countryId = 1; // Default to first country
+            
+            // Very simple mapping for demonstration purposes
+            try {
+                int octet = Integer.parseInt(firstOctet);
+                if (octet < 100) {
+                    countryId = 1; // US
+                } else if (octet < 150) {
+                    countryId = 2; // UK
+                } else if (octet < 200) {
+                    countryId = 3; // Canada
+                } else {
+                    countryId = 4; // Other
+                }
+            } catch (NumberFormatException e) {
+                // Use default
+            }
+            
+            ps.setInt(1, countryId);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Country(rs);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        // If no country found, create a default
+        Country defaultCountry = new Country();
+        defaultCountry.setId(1L);
+        defaultCountry.setName("Unknown");
+        defaultCountry.setCode("??");
+        return defaultCountry;
     }
 }

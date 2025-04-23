@@ -26,6 +26,8 @@ erDiagram
     Books ||--o{ Inventory : tracked_in
     Books ||--o{ Reviews : reviewed
     Customers ||--o{ Reviews : writes
+    
+    Countries ||--o{ PageViews : from
 
 ```
 
@@ -197,6 +199,18 @@ erDiagram
 | review_text | TEXT | | Review content |
 | review_date | TIMESTAMP | NOT NULL, DEFAULT CURRENT_TIMESTAMP | Date of review |
 | UNIQUE(book_id, customer_id) | | | One review per book per customer |
+
+#### PageViews
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| id | INT | PRIMARY KEY, AUTO_INCREMENT | Unique identifier |
+| ip_address | VARCHAR(45) | | Visitor's IP address (supports IPv6) |
+| country_id | INT | FOREIGN KEY (Countries.id) | Reference to the visitor's country |
+| visit_timestamp | TIMESTAMP | NOT NULL, DEFAULT CURRENT_TIMESTAMP | When the page was viewed |
+| user_agent | VARCHAR(255) | | Browser/device information |
+| session_id | VARCHAR(100) | | Unique session identifier |
+| referrer_url | VARCHAR(255) | | Where the visitor came from |
+| page_url | VARCHAR(255) | NOT NULL | The specific page viewed |
 
 ## Indexes
 

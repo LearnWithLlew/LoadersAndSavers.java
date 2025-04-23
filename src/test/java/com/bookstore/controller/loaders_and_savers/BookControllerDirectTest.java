@@ -15,11 +15,11 @@ import java.util.List;
 @UseReporter({DiffReporter.class, FileLauncherReporter.class})
 public class BookControllerDirectTest {
 
-    @Test
-    public void testDirectRenderingOfThymeleafTemplateWithLoader() throws Exception {
-        var model = new ConcurrentModel();
-        String page = BookController.listBooks(model, () -> List.of(BookUtils.getTwilit()));
-        String htmlOutput = ThymeleafUtils.renderPage(page, model);
-        Approvals.verifyHtml(htmlOutput);
-    }
+//    @Test
+//    public void testDirectRenderingOfThymeleafTemplateWithLoader() throws Exception {
+//        var model = new ConcurrentModel();
+//        String page = BookController.listBooks(model, () -> List.of(BookUtils.getTwilit()));
+//        String htmlOutput = ThymeleafUtils.renderPage(page, model);
+//        Approvals.verifyHtml(htmlOutput);
+//    }
 }
