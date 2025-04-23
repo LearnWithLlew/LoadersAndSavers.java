@@ -2,7 +2,6 @@ package com.bookstore.controller.mockito;
 
 import com.bookstore.controller.BookController;
 import com.bookstore.controller.ThymeleafUtils;
-import com.bookstore.service.HibernateBookService;
 import org.approvaltests.Approvals;
 import org.approvaltests.core.Options;
 import org.approvaltests.reporters.DiffReporter;

@@ -1,10 +1,7 @@
 package com.bookstore.controller.spring;
 
 import com.bookstore.controller.BookController;
-import com.bookstore.controller.BookUtils;
 import com.bookstore.controller.mockito.BookControllerHibernateTest;
-import com.bookstore.model.Book;
-import com.bookstore.service.HibernateBookService;
 import org.approvaltests.Approvals;
 import org.approvaltests.core.Options;
 import org.approvaltests.reporters.DiffReporter;
@@ -18,11 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

@@ -1,11 +1,6 @@
 package com.bookstore.util;
 
-import com.bookstore.model.Address;
-import com.bookstore.model.Book;
-import com.bookstore.model.City;
-import com.bookstore.model.Country;
-import com.bookstore.model.Publisher;
-import com.bookstore.model.State;
+import com.bookstore.model.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
