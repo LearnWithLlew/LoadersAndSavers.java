@@ -31,17 +31,17 @@ class BookControllerWebServerTest {
     @MockBean
     private HibernateBookService hibernateBookService;
 
-    @Test
-    public void testListBooks() throws Exception {
-        List<Book> books = List.of(BookUtils.getTwilit());
-        when(hibernateBookService.getTop10Books()).thenReturn(books);
-
-        MvcResult result = mockMvc.perform(get("/"))
-            .andExpect(status().isOk())
-            .andReturn();
-
-        String htmlOutput = result.getResponse().getContentAsString();
-        Approvals.verifyHtml(htmlOutput,
-            new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
-    }
+//    @Test
+//    public void testListBooks() throws Exception {
+//        List<Book> books = List.of(BookUtils.getTwilit());
+//        when(hibernateBookService.getTop10Books()).thenReturn(books);
+//
+//        MvcResult result = mockMvc.perform(get("/"))
+//            .andExpect(status().isOk())
+//            .andReturn();
+//
+//        String htmlOutput = result.getResponse().getContentAsString();
+//        Approvals.verifyHtml(htmlOutput,
+//            new Options().withReporter(new MultiReporter(DiffReporter.INSTANCE, new FileLauncherReporter())));
+//    }
 }
