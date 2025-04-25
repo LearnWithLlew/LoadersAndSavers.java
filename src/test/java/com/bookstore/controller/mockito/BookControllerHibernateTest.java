@@ -2,6 +2,8 @@ package com.bookstore.controller.mockito;
 
 import com.bookstore.controller.BookController;
 import com.bookstore.controller.ThymeleafUtils;
+import com.bookstore.service.GeoIpService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.approvaltests.Approvals;
 import org.approvaltests.core.Options;
 import org.approvaltests.reporters.DiffReporter;
@@ -25,7 +27,9 @@ public class BookControllerHibernateTest {
         setupDataSource(dataSource);
         var model = new ConcurrentModel();
 
-        String page = new BookController(dataSource).listBooks(model);
+        HttpServletRequest request = null;
+        GeoIpService geoIpService = null;
+        String page = new BookController(dataSource, geoIpService).listBooks(model, request);
         String htmlOutput = ThymeleafUtils.renderPage(page, model);
 
         Approvals.verifyHtml(htmlOutput,

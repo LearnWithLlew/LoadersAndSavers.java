@@ -1,5 +1,7 @@
 package com.bookstore.controller;
 
+import com.bookstore.service.GeoIpService;
+
 import com.bookstore.model.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.sql.DataSource;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,10 +28,12 @@ import java.util.Map;
 public class BookController {
 
     public final DataSource dataSource;
+    private final GeoIpService geoIpService;
 
     @Autowired
-    public BookController(DataSource dataSource) {
+    public BookController(DataSource dataSource, GeoIpService geoIpService) {
         this.dataSource = dataSource;
+        this.geoIpService = geoIpService;
     }
 
     @GetMapping("/")
@@ -247,39 +255,29 @@ public class BookController {
         }
         return ipAddress;
     }
-    
+
+    // MaxMind GeoIP2 dependency (add to pom.xml):
+    // <dependency>
+    //   <groupId>com.maxmind.geoip2</groupId>
+    //   <artifactId>geoip2</artifactId>
+    //   <version>4.0.0</version>
+    // </dependency>
+
     private Country getCountryFromIp(String ipAddress) {
-        // In a real application, you would use a geolocation service like MaxMind GeoIP
-        // For this example, we'll look up the country from our database or return a default
-        
-        // Try to find a country based on the first octet of the IP (very simplified approach)
-        String firstOctet = ipAddress.split("\\.")[0];
-        
-        String sql = "SELECT * FROM Countries WHERE id = ?";
+        // Use GeoIpService to get country name from IP
+        String countryName = geoIpService.getCountryName(ipAddress);
+        if (countryName == null) {
+            Country defaultCountry = new Country();
+            defaultCountry.setId(1L);
+            defaultCountry.setName("Unknown");
+            defaultCountry.setCode("??");
+            return defaultCountry;
+        }
+        // Query your Countries table by name
+        String sql = "SELECT * FROM Countries WHERE lower(country_name) = ?";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            
-            // This is a simplified mapping - in production use a proper geolocation service
-            int countryId = 1; // Default to first country
-            
-            // Very simple mapping for demonstration purposes
-            try {
-                int octet = Integer.parseInt(firstOctet);
-                if (octet < 100) {
-                    countryId = 1; // US
-                } else if (octet < 150) {
-                    countryId = 2; // UK
-                } else if (octet < 200) {
-                    countryId = 3; // Canada
-                } else {
-                    countryId = 4; // Other
-                }
-            } catch (NumberFormatException e) {
-                // Use default
-            }
-            
-            ps.setInt(1, countryId);
-            
+            ps.setString(1, countryName.toLowerCase());
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return new Country(rs);
@@ -288,8 +286,6 @@ public class BookController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        // If no country found, create a default
         Country defaultCountry = new Country();
         defaultCountry.setId(1L);
         defaultCountry.setName("Unknown");

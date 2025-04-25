@@ -81,6 +81,11 @@
             <artifactId>approvaltests-util</artifactId>
             <version>24.21.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.maxmind.geoip2</groupId>
+            <artifactId>geoip2</artifactId>
+            <version>4.0.0</version>
+        </dependency>
     </dependencies>
     
     <build>
