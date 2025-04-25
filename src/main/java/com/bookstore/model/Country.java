@@ -33,6 +33,7 @@ public class Country {
     }
 
     public void setId(Long id) {
+        assert id != null : "id cannot be null";
         this.id = id;
     }
 
@@ -41,6 +42,7 @@ public class Country {
     }
 
     public void setName(String name) {
+        assert name != null : "name cannot be null";
         this.name = name;
     }
 
@@ -49,6 +51,7 @@ public class Country {
     }
 
     public void setCode(String code) {
+        assert code != null : "code cannot be null";
         this.code = code;
     }
 
@@ -57,6 +60,7 @@ public class Country {
     }
 
     public void setStates(Set<State> states) {
+        assert states != null : "states cannot be null";
         this.states = states;
     }
 }

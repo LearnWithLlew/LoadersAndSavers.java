@@ -38,6 +38,7 @@ public class Book {
     }
     
     public void setId(Long id) {
+        assert id != null : "id cannot be null";
         this.id = id;
     }
     
@@ -46,6 +47,7 @@ public class Book {
     }
     
     public void setTitle(String title) {
+        assert title != null : "title cannot be null";
         this.title = title;
     }
     
@@ -62,6 +64,7 @@ public class Book {
     }
     
     public void setIsbn13(String isbn13) {
+        assert isbn13 != null : "isbn13 cannot be null";
         this.isbn13 = isbn13;
     }
     
@@ -70,6 +73,7 @@ public class Book {
     }
     
     public void setIsbn10(String isbn10) {
+        assert isbn10 != null : "isbn10 cannot be null";
         this.isbn10 = isbn10;
     }
     
@@ -78,6 +82,7 @@ public class Book {
     }
     
     public void setPublisher(Publisher publisher) {
+        assert publisher != null : "publisher cannot be null";
         this.publisher = publisher;
     }
     
@@ -86,6 +91,7 @@ public class Book {
     }
     
     public void setPublicationDate(LocalDate publicationDate) {
+        assert publicationDate != null : "publicationDate cannot be null";
         this.publicationDate = publicationDate;
     }
     
@@ -94,6 +100,7 @@ public class Book {
     }
     
     public void setEdition(String edition) {
+        assert edition != null : "edition cannot be null";
         this.edition = edition;
     }
     
@@ -102,6 +109,7 @@ public class Book {
     }
     
     public void setPageCount(Integer pageCount) {
+        assert pageCount != null : "pageCount cannot be null";
         this.pageCount = pageCount;
     }
     
@@ -110,6 +118,7 @@ public class Book {
     }
     
     public void setLanguage(String language) {
+        assert language != null : "language cannot be null";
         this.language = language;
     }
     

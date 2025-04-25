@@ -27,6 +27,7 @@ public class Address {
     }
     
     public void setId(Long id) {
+        assert id != null : "id cannot be null";
         this.id = id;
     }
     
@@ -35,6 +36,7 @@ public class Address {
     }
     
     public void setStreetLine1(String streetLine1) {
+        assert streetLine1 != null : "streetLine1 cannot be null";
         this.streetLine1 = streetLine1;
     }
     
@@ -51,6 +53,7 @@ public class Address {
     }
     
     public void setCity(City city) {
+        assert city != null : "city cannot be null";
         this.city = city;
     }
     
@@ -59,6 +62,7 @@ public class Address {
     }
     
     public void setPublishers(Set<Publisher> publishers) {
+        assert publishers != null : "publishers cannot be null";
         this.publishers = publishers;
     }
 }

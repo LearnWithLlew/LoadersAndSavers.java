@@ -27,3 +27,4 @@ replay_pid*
 target
 *.received.*
 data/
+.DS_Store
