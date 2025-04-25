@@ -24,6 +24,7 @@ public class Publisher {
     }
     
     public void setId(Long id) {
+        assert id != null : "id cannot be null";
         this.id = id;
     }
     
@@ -32,6 +33,7 @@ public class Publisher {
     }
     
     public void setName(String name) {
+        assert name != null : "name cannot be null";
         this.name = name;
     }
     
@@ -40,6 +42,7 @@ public class Publisher {
     }
     
     public void setWebsite(String website) {
+        assert website != null : "website cannot be null";
         this.website = website;
     }
     
@@ -48,6 +51,7 @@ public class Publisher {
     }
     
     public void setEmail(String email) {
+        assert email != null : "email cannot be null";
         this.email = email;
     }
     
@@ -56,6 +60,7 @@ public class Publisher {
     }
     
     public void setPhone(String phone) {
+        assert phone != null : "phone cannot be null";
         this.phone = phone;
     }
     
@@ -64,6 +69,7 @@ public class Publisher {
     }
     
     public void setAddress(Address address) {
+        assert address != null : "address cannot be null";
         this.address = address;
     }
 }

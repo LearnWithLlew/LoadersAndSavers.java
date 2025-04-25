@@ -29,6 +29,7 @@ public class City {
     }
     
     public void setId(Long id) {
+        assert id != null : "id cannot be null";
         this.id = id;
     }
     
@@ -37,6 +38,7 @@ public class City {
     }
     
     public void setName(String name) {
+        assert name != null : "name cannot be null";
         this.name = name;
     }
     
@@ -45,6 +47,7 @@ public class City {
     }
     
     public void setPostalCode(String postalCode) {
+        assert postalCode != null : "postalCode cannot be null";
         this.postalCode = postalCode;
     }
     
@@ -53,6 +56,7 @@ public class City {
     }
     
     public void setState(State state) {
+        assert state != null : "state cannot be null";
         this.state = state;
     }
     
@@ -61,6 +65,7 @@ public class City {
     }
     
     public void setAddresses(Set<Address> addresses) {
+        assert addresses != null : "addresses cannot be null";
         this.addresses = addresses;
     }
 }
